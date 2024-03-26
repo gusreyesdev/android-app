@@ -1,6 +1,6 @@
 package com.timetonic.core.navigation.ui
 
-sealed class Routes(val route: String) {
-    data object Login : Routes("login")
-    data object Landing : Routes("landing")
+object Routes {
+    const val LOGIN_SCREEN ="LOGIN"
+    const val HOME_SCREEN = "HOME"
 }

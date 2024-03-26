@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">TimeTonic</string>
-    <string name="email_text_field">Email</string>
-    <string name="email_keyboard">email</string>
-    <string name="password_keyboard">password</string>
+    <string name="username_text_field">Username</string>
     <string name="password_text_field">Password</string>
     <string name="help_required">Required</string>
-    <string name="common_button">Accept</string>
+    <string name="login_text_button">Login</string>
 </resources>

@@ -32,7 +32,7 @@ fun OutTextFieldComp(
     isRequired: Boolean = false,
     onValueChanged: (String) -> Unit
 ) {
-    var textValue by remember { mutableStateOf("") }
+    var textValue by remember { mutableStateOf("kminchelle") }
     var isError by remember { mutableStateOf(false) }
 
     Column {
@@ -67,7 +67,7 @@ fun OutTextFieldPasswordComp(
     onValueChanged: (String) -> Unit
 
 ) {
-    var textValue by remember { mutableStateOf("") }
+    var textValue by remember { mutableStateOf("0lelplR") }
     var isError by remember { mutableStateOf(false) }
     var passwordShow by remember { mutableStateOf(false) }
 

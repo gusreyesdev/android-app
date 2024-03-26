@@ -1,7 +1,8 @@
 package com.timetonic.auth.login.ui
 
-import android.app.Application
+import android.util.Log
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,30 +14,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.timetonic.R
-import com.timetonic.core.Constants
+import com.timetonic.auth.login.data.network.model.LoginResponse
 import com.timetonic.ui.components.OutTextFieldComp
 import com.timetonic.ui.components.OutTextFieldPasswordComp
-import dagger.hilt.android.internal.Contexts
 
 @Composable
 fun LoginScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: LoginViewModel
+    loginViewModel: LoginViewModel = hiltViewModel()
 ) {
-    val email: String by viewModel.email.observeAsState("")
-    val password: String by viewModel.password.observeAsState("")
-    val isLoginEnable: Boolean by viewModel.isLoginEnable.observeAsState(false)
-    val isLoading: Boolean by viewModel.isLoading.observeAsState(false)
-    val appName = stringResource(id = R.string.app_name)
+    val username: String by loginViewModel.username.observeAsState("")
+    val password: String by loginViewModel.password.observeAsState("")
+    val isLoginEnable: Boolean by loginViewModel.isLoginEnable.observeAsState(false)
+    val isLoading: Boolean by loginViewModel.isLoading.observeAsState(false)
 
     ConstraintLayout(
         modifier = Modifier
@@ -60,11 +59,11 @@ fun LoginScreen(
             } else {
 
                 OutTextFieldComp(
-                    label = stringResource(id = R.string.email_text_field),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                    label = stringResource(id = R.string.username_text_field),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     isRequired = true
                 ) {
-                    viewModel.onLoginChanged(email = it, password = password)
+                    loginViewModel.onLoginChanged(username = it, password = password)
                 }
 
                 OutTextFieldPasswordComp(
@@ -72,21 +71,21 @@ fun LoginScreen(
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     isRequired = true
                 ) {
-                    viewModel.onLoginChanged(email = email, password = it)
+                    loginViewModel.onLoginChanged(username = username, password = it)
                 }
 
                 Button(modifier = modifier
                     .fillMaxWidth()
-                    .padding(vertical = dimensionResource(id = R.dimen.button_padding_vertical)),
+                    .padding(top = dimensionResource(id = R.dimen.login_button_padding)),
+                    contentPadding = PaddingValues(),
                     enabled = isLoginEnable,
                     onClick = {
-                        viewModel.onCreateAppKeyModel(
-                            version = Constants.VERSION,
-                            req = Constants.CREATEAPPKEY,
-                            appname = appName
+                        loginViewModel.login(
+                            username,
+                            password
                         )
                     }) {
-                    Text(text = stringResource(id = R.string.common_button))
+                    Text(text = stringResource(id = R.string.login_text_button))
                 }
             }
         }

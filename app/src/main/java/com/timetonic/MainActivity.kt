@@ -7,14 +7,11 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.timetonic.auth.login.ui.LoginScreen
 import com.timetonic.auth.login.ui.LoginViewModel
-import com.timetonic.core.navigation.ui.Routes
-import com.timetonic.landing.presentation.LandingScreen
+import com.timetonic.core.navigation.ui.AppNavigationGraph
 import com.timetonic.ui.theme.TimeTonicTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,19 +31,27 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavHost(navController = navController, startDestination = Routes.Login.route) {
-                        composable(route = Routes.Login.route) {
+
+                    AppEntryPoint()
+                    /*
+                    NavHost(navController = navController, startDestination = Routes1.Login.route) {
+                        composable(route = Routes1.Login.route) {
                             LoginScreen(navController, viewModel = loginViewModel)
                         }
-                        composable(route = Routes.Landing.route) {
+                        composable(route = Routes1.Landing.route) {
                             LandingScreen(navController)
                         }
                     }
+                    */
                 }
             }
         }
     }
 }
 
+@Composable
+fun AppEntryPoint() {
+    AppNavigationGraph()
+}
 
 

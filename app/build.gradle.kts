@@ -68,6 +68,7 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     //Navigation
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
     //ConstraintLayout
     implementation(libs.androidx.constraintlayout.compose.android)
     //LiveData
